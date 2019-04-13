@@ -33,9 +33,15 @@ class Calculator implements ActionListener {
     private JButton buttonDiv = new JButton("/");
     private JButton buttonPlus = new JButton("+");
     private JButton buttonMinus = new JButton("-");
+    private JButton buttonSin = new JButton("SIN");
+    private JButton buttonCOS = new JButton("COS");
+    private JButton buttonTAN = new JButton("TAN");
+    private JButton buttonCTG = new JButton("CTG");
     private JButton buttonSquare = new JButton("x\u00B2");
     private JButton buttonReciprocal = new JButton("1/x");
     private JButton buttonSqrt = new JButton("\u221A");
+    private JButton buttonLn = new JButton("Ln");
+    private JButton buttonFactorial = new JButton("x!");
 
     Calculator() {
         createWindow();
@@ -46,9 +52,9 @@ class Calculator implements ActionListener {
     private void createWindow() {
         frame = new JFrame();
         frame.setTitle("MARIUS'S CALCULATOR");
-        frame.setSize(300, 490);
+        frame.setSize(370, 500);
         frame.getContentPane().setLayout(null);
-        frame.getContentPane().setBackground(Color.black);
+        frame.getContentPane().setBackground(Color.BLACK);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
@@ -62,7 +68,7 @@ class Calculator implements ActionListener {
         frame.add(label);
 
         //Setting property of text field
-        textField.setBounds(10, 40, 270, 40);
+        textField.setBounds(40, 40, 270, 40);
         textField.setFont(new Font("Arial", Font.BOLD, 20));
         textField.setEditable(false);
         textField.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -174,6 +180,42 @@ class Calculator implements ActionListener {
         buttonMinus.setBackground(new Color(239, 188, 2));
         frame.add(buttonMinus);
 
+        //Setting property of button Sin
+        buttonSin.setBounds(290, 170, 60, 40);
+        buttonSin.setFont(new Font("Arial", Font.BOLD, 12));
+        buttonSin.setBackground(new Color(239, 188, 2));
+        frame.add(buttonSin);
+
+        //Setting property of button Cos
+        buttonCOS.setBounds(290, 110, 60, 40);
+        buttonCOS.setFont(new Font("Arial", Font.BOLD, 12));
+        buttonCOS.setBackground(new Color(239, 188, 2));
+        frame.add(buttonCOS);
+
+        //Setting property of button TAN
+        buttonTAN.setBounds(290, 230, 60, 40);
+        buttonTAN.setFont(new Font("Arial", Font.BOLD, 12));
+        buttonTAN.setBackground(new Color(239, 188, 2));
+        frame.add(buttonTAN);
+
+        //Setting property of button CTG
+        buttonCTG.setBounds(290, 290, 60, 40);
+        buttonCTG.setFont(new Font("Arial", Font.BOLD, 12));
+        buttonCTG.setBackground(new Color(239, 188, 2));
+        frame.add(buttonCTG);
+
+        //Setting property of button Ln
+        buttonLn.setBounds(290, 350, 60, 40);
+        buttonLn.setFont(new Font("Arial", Font.BOLD, 12));
+        buttonLn.setBackground(new Color(239, 188, 2));
+        frame.add(buttonLn);
+
+        //Setting property of button factorial
+        buttonFactorial.setBounds(290, 410, 60, 40);
+        buttonFactorial.setFont(new Font("Arial", Font.BOLD, 12));
+        buttonFactorial.setBackground(new Color(239, 188, 2));
+        frame.add(buttonFactorial);
+
         //Setting property of button +
         buttonPlus.setBounds(220, 290, 60, 40);
         buttonPlus.setFont(new Font("Arial", Font.BOLD, 20));
@@ -230,6 +272,12 @@ class Calculator implements ActionListener {
         buttonEqual.addActionListener(this);
         buttonZero.addActionListener(this);
         buttonDot.addActionListener(this);
+        buttonFactorial.addActionListener(this);
+        buttonCTG.addActionListener(this);
+        buttonCOS.addActionListener(this);
+        buttonSin.addActionListener(this);
+        buttonLn.addActionListener(this);
+        buttonTAN.addActionListener(this);
     }
 
     //Overriding actionPerformed() method
@@ -337,10 +385,78 @@ class Calculator implements ActionListener {
             } else {
                 textField.setText(string);
             }
+        } else if (source == buttonCOS) {
+            number = Double.parseDouble(textField.getText());
+            double degs = Math.toRadians(number);
+            double cos =  Math.cos(degs);
+            String string = Double.toString(cos);
+            if (string.endsWith(".0")) {
+                textField.setText(string.replace(".0", ""));
+            } else {
+                textField.setText(string);
+            }
+            label.setText("cos(" + number +")");
+        } else if (source == buttonSin) {
+            number = Double.parseDouble(textField.getText());
+            double degs = Math.toRadians(number);
+            double sin = Math.sin(degs);
+            String string = Double.toString(sin);
+            if (string.endsWith(".0")) {
+                textField.setText(string.replace(".0", ""));
+            } else {
+                textField.setText(string);
+            }
+            label.setText("sin(" + number +")");
+        } else if (source == buttonTAN) {
+            number = Double.parseDouble(textField.getText());
+            double degs = Math.toRadians(number);
+            double tan = Math.tan(degs);
+            String string = Double.toString(tan);
+            if (string.endsWith(".0")) {
+                textField.setText(string.replace(".0", ""));
+            } else {
+                textField.setText(string);
+            }
+            label.setText("tan(" + number +")");
+        } else if (source == buttonCTG) {
+            number = Double.parseDouble(textField.getText());
+            double degs = Math.toRadians(number);
+            double tan = Math.tan(degs);
+            double cot = 1.0 / tan;
+            String string = Double.toString(cot);
+            if (string.endsWith(".0")) {
+                textField.setText(string.replace(".0", ""));
+            } else {
+                textField.setText(string);
+            }
+            label.setText("ctg(" + number +")");
+        } else if (source == buttonLn) {
+            number = Double.parseDouble(textField.getText());
+            double log = Math.log(number);
+            String string = Double.toString(log);
+            if (string.endsWith(".0")) {
+                textField.setText(string.replace(".0", ""));
+            } else {
+                textField.setText(string);
+            }
+            label.setText("Ln(" + number +")");
+        } else if (source == buttonFactorial) {
+            number = Double.parseDouble(textField.getText());
+            long factorial = 1;
+            for(int i = 2; i <= (int) number; i++) {
+                factorial *= i;
+            }
+            String string = Double.toString(factorial);
+            if (string.endsWith(".0")) {
+                textField.setText(string.replace(".0", ""));
+            } else {
+                textField.setText(string);
+            }
+            label.setText(number + "!");
         } else if (source == buttonEqual) {
             //Setting functionality for equal(=) button
             switch (operator) {
-                case '+':
+                case  '+':
                     double answer = number + Double.parseDouble(textField.getText());
                     if (Double.toString(answer).endsWith(".0")) {
                         textField.setText(Double.toString(answer).replace(".0", ""));
@@ -412,6 +528,12 @@ class Calculator implements ActionListener {
         buttonEqual.setEnabled(true);
         buttonZero.setEnabled(true);
         buttonDot.setEnabled(true);
+        buttonFactorial.setEnabled(true);
+        buttonCTG.setEnabled(true);
+        buttonCOS.setEnabled(true);
+        buttonSin.setEnabled(true);
+        buttonLn.setEnabled(true);
+        buttonTAN.setEnabled(true);
     }
 
     private void disable() {
@@ -440,5 +562,11 @@ class Calculator implements ActionListener {
         buttonEqual.setEnabled(false);
         buttonZero.setEnabled(false);
         buttonDot.setEnabled(false);
+        buttonFactorial.setEnabled(false);
+        buttonCTG.setEnabled(false);
+        buttonCOS.setEnabled(false);
+        buttonSin.setEnabled(false);
+        buttonLn.setEnabled(false);
+        buttonTAN.setEnabled(false);
     }
 }
